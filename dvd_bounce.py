@@ -1,5 +1,3 @@
-# pyright: reportUnknownMemberType=false
-
 import random
 from typing import Final, List, Tuple
 
