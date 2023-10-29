@@ -10,10 +10,12 @@ WHITE: Final[Tuple[int, int, int]] = (255, 255, 255)
 SCREEN_WIDTH: Final[int] = 960
 SCREEN_HEIGHT: Final[int] = 540
 IMG_MAX_SIZE: Final[float] = 100
+SCREEN_DIMENSIONS: Final[List[int]] = [SCREEN_WIDTH, SCREEN_HEIGHT]
 
 SPEED: Final[float] = 2
 RANDOM_SPEED_DELTA: Final[float] = 0.1
 RANDOM_SIZE_DELTA: Final[float] = 2
+STARTING_NUMBER_OF_SPRITES: Final[int] = 1
 
 BASE_IMAGE: Final[pygame.Surface] = pygame.image.load("dvd_logo.png")
 IMAGE_SCALE_FACTOR: Final[float] = max(max(BASE_IMAGE.get_size()) / IMG_MAX_SIZE, 1)
@@ -59,11 +61,10 @@ def make_ball() -> SpriteAsset:
     return ball
 
 
-def main():
+def main() -> None:
     pygame.init()
 
-    size = [SCREEN_WIDTH, SCREEN_HEIGHT]
-    screen = pygame.display.set_mode(size)
+    screen = pygame.display.set_mode(SCREEN_DIMENSIONS)
 
     pygame.display.set_caption("Bouncing")
     pygame.display.set_icon(
@@ -76,12 +77,11 @@ def main():
 
     sprite_list: List[SpriteAsset] = []
 
-    for _ in range(0, 1):
+    for _ in range(0, STARTING_NUMBER_OF_SPRITES):
         sprite = make_ball()
         sprite_list.append(sprite)
 
     while not done:
-        # --- Event Processing
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 done = True
@@ -93,7 +93,6 @@ def main():
                 elif event.key == pygame.K_k:
                     sprite_list.pop(0)
 
-        # --- Logic
         for sprite in sprite_list:
             # Move the sprites's center
             sprite.object.x += sprite.object.change_x
