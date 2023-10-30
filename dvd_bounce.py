@@ -76,7 +76,7 @@ def main() -> None:
     sprite_list: List[SpriteAsset] = []
     speed_multiplier: float = 1
 
-    for _ in range(0, STARTING_NUMBER_OF_SPRITES):
+    for _ in range(STARTING_NUMBER_OF_SPRITES):
         sprite = make_ball()
         sprite_list.append(sprite)
 
