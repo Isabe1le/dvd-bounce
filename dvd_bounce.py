@@ -108,19 +108,28 @@ def main() -> None:
             sprite.object.y += sprite.object.change_y * speed_multiplier
 
             # Bounce the sprites if needed: walls
+            y_collided = False
+            x_collided = False
             normal_vector = None
             if sprite.object.y > SCREEN_HEIGHT - sprite.pygame_image_size[1]:
                 sprite.object.change_y = abs(sprite.object.change_y)
                 normal_vector = pygame.Vector2(0, -1)
+                y_collided = True
             elif sprite.object.y < 0:
                 sprite.object.change_y = -abs(sprite.object.change_y)
                 normal_vector = pygame.Vector2(0, 1)
-            elif sprite.object.x > SCREEN_WIDTH - sprite.pygame_image_size[0]:
+                y_collided = True
+            if sprite.object.x > SCREEN_WIDTH - sprite.pygame_image_size[0]:
                 sprite.object.change_x = abs(sprite.object.change_x)
                 normal_vector = pygame.Vector2(-1, 0)
+                x_collided = True
             elif sprite.object.x < 0:
                 sprite.object.change_x = -abs(sprite.object.change_x)
                 normal_vector = pygame.Vector2(1, 0)
+                x_collided = True
+
+            if y_collided and x_collided:
+                print("CORNER BOUNCE")
 
             if normal_vector:
                 normal_vector.rotate_ip(randint(-3, 3))
