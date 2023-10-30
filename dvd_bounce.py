@@ -74,7 +74,7 @@ def main() -> None:
     done = False
     clock = pygame.time.Clock()
     sprite_list: List[SpriteAsset] = []
-    speed_multiplier = 1
+    speed_multiplier: float = 1
 
     for _ in range(0, STARTING_NUMBER_OF_SPRITES):
         sprite = make_ball()
