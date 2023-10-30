@@ -12,7 +12,7 @@ SCREEN_HEIGHT: Final[int] = 540
 IMG_MAX_SIZE: Final[float] = 100
 SCREEN_DIMENSIONS: Final[Tuple[int, int]] = (SCREEN_WIDTH, SCREEN_HEIGHT)
 
-TILE_MOVEMENT_SPEED: Final[float] = 2
+INITIAL_TILE_MOVEMENT_SPEED: Final[float] = 2
 RANDOM_SPEED_DELTA: Final[float] = 0.1
 RANDOM_SIZE_DELTA: Final[float] = 2
 STARTING_NUMBER_OF_SPRITES: Final[int] = 1
@@ -55,8 +55,8 @@ def make_ball() -> SpriteAsset:
     ball.object.y = randrange(IMG_MAX_SIZE, SCREEN_HEIGHT - IMG_MAX_SIZE)
 
     # Speed and direction of rectangle
-    ball.object.change_y = randsign(TILE_MOVEMENT_SPEED + uniform(-RANDOM_SPEED_DELTA, RANDOM_SPEED_DELTA))
-    ball.object.change_x = randsign(TILE_MOVEMENT_SPEED + uniform(-RANDOM_SPEED_DELTA, RANDOM_SPEED_DELTA))
+    ball.object.change_y = randsign(INITIAL_TILE_MOVEMENT_SPEED + uniform(-RANDOM_SPEED_DELTA, RANDOM_SPEED_DELTA))
+    ball.object.change_x = randsign(INITIAL_TILE_MOVEMENT_SPEED + uniform(-RANDOM_SPEED_DELTA, RANDOM_SPEED_DELTA))
 
     return ball
 
@@ -72,10 +72,9 @@ def main() -> None:
     )
 
     done = False
-
     clock = pygame.time.Clock()
-
     sprite_list: List[SpriteAsset] = []
+    speed_multiplier = 1
 
     for _ in range(0, STARTING_NUMBER_OF_SPRITES):
         sprite = make_ball()
@@ -91,8 +90,12 @@ def main() -> None:
                         case pygame.K_s:
                             sprite = make_ball()
                             sprite_list.append(sprite)
-                        case pygame.K_k:
+                        case pygame.K_d:
                             sprite_list.pop(0)
+                        case pygame.K_j:
+                            speed_multiplier += 0.1
+                        case pygame.K_k:
+                            speed_multiplier -= 0.1
                         case _:
                             pass
                 case _:
@@ -100,8 +103,8 @@ def main() -> None:
 
         for sprite in sprite_list:
             # Move the sprites's center
-            sprite.object.x += sprite.object.change_x
-            sprite.object.y += sprite.object.change_y
+            sprite.object.x += sprite.object.change_x * speed_multiplier
+            sprite.object.y += sprite.object.change_y * speed_multiplier
 
             # Bounce the sprites if needed: walls
             normal_vector = None
