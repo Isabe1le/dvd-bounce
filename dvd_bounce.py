@@ -75,6 +75,7 @@ def main() -> None:
     clock = pygame.time.Clock()
     sprite_list: List[SpriteAsset] = []
     speed_multiplier: float = 1
+    pygame.key.set_repeat(600, 60)
 
     for _ in range(STARTING_NUMBER_OF_SPRITES):
         sprite = make_ball()
@@ -153,6 +154,9 @@ if __name__ == "__main__":
         | d = kill oldest tile |
         | j = increase speed   |
         | k = decrease speed   |
+        +-------- HINT --------+
+        | hold down a key to   |
+        | rapidly use it       |
         +----------------------+
     """)
     main()
