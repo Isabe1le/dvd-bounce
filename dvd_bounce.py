@@ -1,4 +1,4 @@
-import random
+from random import randint, randrange, uniform
 from typing import Final, List, Tuple
 
 import pygame
@@ -10,9 +10,9 @@ WHITE: Final[Tuple[int, int, int]] = (255, 255, 255)
 SCREEN_WIDTH: Final[int] = 960
 SCREEN_HEIGHT: Final[int] = 540
 IMG_MAX_SIZE: Final[float] = 100
-SCREEN_DIMENSIONS: Final[List[int]] = [SCREEN_WIDTH, SCREEN_HEIGHT]
+SCREEN_DIMENSIONS: Final[Tuple[int, int]] = (SCREEN_WIDTH, SCREEN_HEIGHT)
 
-SPEED: Final[float] = 2
+TILE_MOVEMENT_SPEED: Final[float] = 2
 RANDOM_SPEED_DELTA: Final[float] = 0.1
 RANDOM_SIZE_DELTA: Final[float] = 2
 STARTING_NUMBER_OF_SPRITES: Final[int] = 1
@@ -42,7 +42,7 @@ class Sprite:
 
 
 def randsign(n: float) -> float:
-    if random.randint(0, 1) == 0:
+    if randint(0, 1) == 0:
         return -n
     return n
 
@@ -51,12 +51,12 @@ def make_ball() -> SpriteAsset:
     ball = SpriteAsset()
     # Starting position of the ball.
     # Take into account the ball size so we don't spawn on the edge.
-    ball.object.x = random.randrange(IMG_MAX_SIZE, SCREEN_WIDTH  - IMG_MAX_SIZE)
-    ball.object.y = random.randrange(IMG_MAX_SIZE, SCREEN_HEIGHT - IMG_MAX_SIZE)
+    ball.object.x = randrange(IMG_MAX_SIZE, SCREEN_WIDTH  - IMG_MAX_SIZE)
+    ball.object.y = randrange(IMG_MAX_SIZE, SCREEN_HEIGHT - IMG_MAX_SIZE)
 
     # Speed and direction of rectangle
-    ball.object.change_y = randsign(SPEED + random.uniform(-RANDOM_SPEED_DELTA, RANDOM_SPEED_DELTA))
-    ball.object.change_x = randsign(SPEED + random.uniform(-RANDOM_SPEED_DELTA, RANDOM_SPEED_DELTA))
+    ball.object.change_y = randsign(TILE_MOVEMENT_SPEED + uniform(-RANDOM_SPEED_DELTA, RANDOM_SPEED_DELTA))
+    ball.object.change_x = randsign(TILE_MOVEMENT_SPEED + uniform(-RANDOM_SPEED_DELTA, RANDOM_SPEED_DELTA))
 
     return ball
 
@@ -114,7 +114,7 @@ def main() -> None:
                 normal_vector = pygame.Vector2(1, 0)
 
             if normal_vector:
-                normal_vector.rotate_ip(random.randint(-3, 3))
+                normal_vector.rotate_ip(randint(-3, 3))
                 move_vector = pygame.Vector2(sprite.object.change_x, sprite.object.change_y)
                 reflect_vector = move_vector.reflect(normal_vector)
                 sprite.object.change_x = reflect_vector.x
