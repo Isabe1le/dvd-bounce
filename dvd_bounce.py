@@ -147,4 +147,12 @@ def main() -> None:
 
 
 if __name__ == "__main__":
+    print("""
+        +------ CONTROLS ------+
+        | s = spawn new tile   |
+        | d = kill oldest tile |
+        | j = increase speed   |
+        | k = decrease speed   |
+        +----------------------+
+    """)
     main()
