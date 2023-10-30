@@ -83,15 +83,20 @@ def main() -> None:
 
     while not done:
         for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                done = True
-
-            elif event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_s:
-                    sprite = make_ball()
-                    sprite_list.append(sprite)
-                elif event.key == pygame.K_k:
-                    sprite_list.pop(0)
+            match event.type:
+                case pygame.QUIT:
+                    done = True
+                case pygame.KEYDOWN:
+                    match event.key:
+                        case pygame.K_s:
+                            sprite = make_ball()
+                            sprite_list.append(sprite)
+                        case pygame.K_k:
+                            sprite_list.pop(0)
+                        case _:
+                            pass
+                case _:
+                    pass
 
         for sprite in sprite_list:
             # Move the sprites's center
