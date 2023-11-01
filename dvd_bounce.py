@@ -3,9 +3,11 @@ from typing import Final, List, Tuple
 
 import pygame
 
+ColourType = Tuple[int, int, int]
+
 # Define some colors
-BLACK: Final[Tuple[int, int, int]] = (0, 0, 0)
-WHITE: Final[Tuple[int, int, int]] = (255, 255, 255)
+BLACK: Final[ColourType] = (0, 0, 0)
+WHITE: Final[ColourType] = (255, 255, 255)
 
 SCREEN_WIDTH: Final[int] = 960
 SCREEN_HEIGHT: Final[int] = 540
@@ -64,7 +66,7 @@ def make_ball() -> SpriteAsset:
     return ball
 
 
-def rand_colour() -> Tuple[int, int, int]:
+def rand_colour() -> ColourType:
     r = randint(0, 255)
     g = randint(0, 255)
     b = randint(0, 255)
