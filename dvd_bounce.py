@@ -20,7 +20,7 @@ RANDOM_SIZE_DELTA: Final[float] = 2
 STARTING_NUMBER_OF_SPRITES: Final[int] = 1
 CONFETTI_PARTICLE_SIZE: Final[int] = 5
 CONFETTI_PARTICLE_SPEED: Final[int] = 5
-NUMBER_OF_CONFETTI_PARTICLES: Final[int] = 200
+NUMBER_OF_CONFETTI_PARTICLES: Final[int] = 1000
 
 BASE_IMAGE: Final[pygame.Surface] = pygame.image.load("dvd_logo.png")
 IMAGE_SCALE_FACTOR: Final[float] = max(max(BASE_IMAGE.get_size()) / IMG_MAX_SIZE, 1)
