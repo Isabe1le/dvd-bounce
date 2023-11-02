@@ -52,18 +52,18 @@ def randsign(n: float) -> float:
     return n
 
 
-def make_ball() -> SpriteAsset:
-    ball = SpriteAsset()
-    # Starting position of the ball.
-    # Take into account the ball size so we don't spawn on the edge.
-    ball.object.x = randrange(IMG_MAX_SIZE, SCREEN_WIDTH  - IMG_MAX_SIZE)
-    ball.object.y = randrange(IMG_MAX_SIZE, SCREEN_HEIGHT - IMG_MAX_SIZE)
+def make_sprite() -> SpriteAsset:
+    sprite = SpriteAsset()
+    # Starting position of the sprite.
+    # Take into account the sprite size so we don't spawn on the edge.
+    sprite.object.x = randrange(IMG_MAX_SIZE, SCREEN_WIDTH  - IMG_MAX_SIZE)
+    sprite.object.y = randrange(IMG_MAX_SIZE, SCREEN_HEIGHT - IMG_MAX_SIZE)
 
     # Speed and direction of rectangle
-    ball.object.change_y = randsign(INITIAL_TILE_MOVEMENT_SPEED + uniform(-RANDOM_SPEED_DELTA, RANDOM_SPEED_DELTA))
-    ball.object.change_x = randsign(INITIAL_TILE_MOVEMENT_SPEED + uniform(-RANDOM_SPEED_DELTA, RANDOM_SPEED_DELTA))
+    sprite.object.change_y = randsign(INITIAL_TILE_MOVEMENT_SPEED + uniform(-RANDOM_SPEED_DELTA, RANDOM_SPEED_DELTA))
+    sprite.object.change_x = randsign(INITIAL_TILE_MOVEMENT_SPEED + uniform(-RANDOM_SPEED_DELTA, RANDOM_SPEED_DELTA))
 
-    return ball
+    return sprite
 
 
 def rand_colour() -> ColourType:
@@ -105,7 +105,7 @@ def main() -> None:
     confetti_particles: List[Particle] = []
 
     for _ in range(STARTING_NUMBER_OF_SPRITES):
-        sprite = make_ball()
+        sprite = make_sprite()
         sprite_list.append(sprite)
 
     while not done:
@@ -116,7 +116,7 @@ def main() -> None:
                 case pygame.KEYDOWN:
                     match event.key:
                         case pygame.K_s:
-                            sprite = make_ball()
+                            sprite = make_sprite()
                             sprite_list.append(sprite)
                         case pygame.K_d:
                             sprite_list.pop(0)
